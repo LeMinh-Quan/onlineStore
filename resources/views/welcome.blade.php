@@ -7,7 +7,7 @@
 @section('content')
 <div class="text-center">
    <a href="{{ route('home') }}">Chao mung den voi ung dung Online Store!</a>
-   
+   <a href="{{ route('home.about') }}">About</a>
 </div>
 
 @endsection

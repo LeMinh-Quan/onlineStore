@@ -19,8 +19,8 @@ aria-expanded="false" aria-label="Toggle navigation">
 </button>
 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 <div class="navbar-nav ms-auto">
-<a class="nav-link active" href="home">Home</a>
-<a class="nav-link active" href="#">About</a>
+<a class="nav-link active" href="{{ route('home') }}">Home</a>
+<a class="nav-link active" href="{{ route('home.about') }}">About</a>
 </div>
 </div>
 </div>
