@@ -7,14 +7,14 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
   public static $products = [ 
-        ["id"=>"1", "name"=>"TV", "description"=>"Best TV", "image" => "TV.jpg", 
+        ["id"=>"1", "name"=>"TV", "description"=>"Best TV", "image" => "TV.png", 
 "price"=>"2000"], 
         ["id"=>"2", "name"=>"iPhone", "description"=>"Best iPhone", "image" => 
-"iPhone.jpeg", "price"=>"1500"], 
+"iPhone.png", "price"=>"1500"], 
         ["id"=>"3", "name"=>"Chromecast", "description"=>"Best Chromecast", "image" => 
-"Chromecast.jpeg", "price"=>"300"], 
+"Chromecast.png", "price"=>"300"], 
         ["id"=>"4", "name"=>"Glasses", "description"=>"Best Glasses", "image" => 
-"Glasses.jpeg", "price"=>"500"]  
+"Glasses.png", "price"=>"500"]  
     ]; 
 
    public function index()  
