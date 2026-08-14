@@ -34,7 +34,9 @@ class ProductFactory extends Factory
             'stock_quantity' => fake()->numberBetween(1, 100),
             // 1 đoạn văn mô tả
             'description' => fake()->paragraph(),
-            // Random lấy ID của một danh mục đã tồn tại trong bảng categories
+            // Hình ảnh giả do ko có hình ảnh
+            'image' => fake()->imageUrl(),
+            //lấy id ngấu nhiên thông qua random
             'category_id' => Category::inRandomOrder()->first()->id ?? Category::factory(),
         ];
     }

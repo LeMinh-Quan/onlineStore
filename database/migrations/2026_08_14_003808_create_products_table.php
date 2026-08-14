@@ -19,6 +19,7 @@ return new class extends Migration
             $table->decimal('price', 12, 2);
             $table->integer('stock_quantity')->default(0); // Số lượng tồn kho 
             $table->text('description')->nullable(); // Mô tả (có thể để trống) 
+            $table->string('image')->nullable(); // Hình ảnh sản phẩm-> ko lỗi khi chạy gộp lab1-6
             
             $table->timestamps(); 
         }); 
