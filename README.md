@@ -1,59 +1,316 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Online Store
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Ứng dụng quản lý cửa hàng trực tuyến được xây dựng bằng Laravel 12. Project
+cung cấp các chức năng cơ bản để quản lý danh mục, sản phẩm và sản phẩm đã bị
+xóa thông qua giao diện Blade.
 
-## About Laravel
+## 1. Chức năng chính
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Trang chung
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Trang chủ tại `/`.
+- Trang giới thiệu tại `/about`.
+- Giao diện sử dụng Blade và Bootstrap.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Quản lý sản phẩm
 
-## Learning Laravel
+- Xem danh sách sản phẩm có phân trang, tối đa 10 sản phẩm mỗi trang.
+- Xem thông tin chi tiết sản phẩm.
+- Thêm sản phẩm mới thuộc một danh mục.
+- Chỉnh sửa tên, giá, số lượng tồn kho và mô tả sản phẩm.
+- Kiểm tra dữ liệu đầu vào bằng Form Request.
+- Xóa mềm sản phẩm vào thùng rác.
+- Khôi phục sản phẩm đã xóa.
+- Xóa vĩnh viễn sản phẩm khỏi database.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### Dữ liệu mẫu
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Tạo 10 danh mục bằng `CategoryFactory`.
+- Tạo 50 sản phẩm bằng `ProductFactory`.
+- Mỗi sản phẩm được gán ngẫu nhiên vào một danh mục có sẵn.
 
-## Laravel Sponsors
+## 2. Công nghệ sử dụng
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- PHP 8.2 trở lên.
+- Laravel 12.
+- Composer.
+- SQLite mặc định hoặc MySQL.
+- Blade Template Engine.
+- Bootstrap 5 qua CDN.
+- Vite và Tailwind CSS.
+- PHPUnit cho kiểm thử.
 
-### Premium Partners
+## 3. Yêu cầu trước khi cài đặt
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Đảm bảo máy đã cài đặt:
 
-## Contributing
+- PHP 8.2+ với các extension cần thiết cho Laravel.
+- Composer.
+- Node.js và npm.
+- Git nếu clone project từ repository.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Kiểm tra phiên bản:
 
-## Code of Conduct
+```bash
+php -v
+composer -V
+node -v
+npm -v
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 4. Cài đặt project
 
-## Security Vulnerabilities
+### Bước 1: Lấy mã nguồn
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+git clone <repository-url>
+cd onlineStore
+```
 
-## License
+Nếu project đã có sẵn trên máy, chỉ cần mở terminal tại thư mục project.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Bước 2: Cài đặt thư viện PHP
+
+```bash
+composer install
+```
+
+### Bước 3: Tạo file môi trường
+
+Trên Windows PowerShell:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Trên macOS/Linux:
+
+```bash
+cp .env.example .env
+```
+
+### Bước 4: Tạo application key
+
+```bash
+php artisan key:generate
+```
+
+## 5. Cấu hình database
+
+### Sử dụng SQLite
+
+Trong file `.env`, đặt:
+
+```env
+DB_CONNECTION=sqlite
+```
+
+Tạo file database nếu file chưa tồn tại.
+
+Windows PowerShell:
+
+```powershell
+New-Item database/database.sqlite -ItemType File
+```
+
+macOS/Linux:
+
+```bash
+touch database/database.sqlite
+```
+
+### Sử dụng MySQL
+
+Tạo database MySQL, sau đó cập nhật các thông tin tương ứng trong `.env`:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=online_store
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+## 6. Migration và seeding
+
+Chạy migration:
+
+```bash
+php artisan migrate
+```
+
+Tạo dữ liệu mẫu:
+
+```bash
+php artisan db:seed
+```
+
+Hoặc xóa toàn bộ bảng, tạo lại cấu trúc và seed lại dữ liệu:
+
+```bash
+php artisan migrate:fresh --seed
+```
+
+Lưu ý: `migrate:fresh --seed` sẽ xóa toàn bộ dữ liệu hiện có trong database.
+
+Các file database quan trọng:
+
+- `database/migrations`: định nghĩa bảng và cột.
+- `database/factories/CategoryFactory.php`: dữ liệu mẫu danh mục.
+- `database/factories/ProductFactory.php`: dữ liệu mẫu sản phẩm.
+- `database/seeders/DatabaseSeeder.php`: nơi gọi các factory.
+
+## 7. Cài đặt và chạy frontend
+
+Cài đặt package JavaScript:
+
+```bash
+npm install
+```
+
+Build tài nguyên frontend:
+
+```bash
+npm run build
+```
+
+Trong quá trình phát triển, có thể chạy Vite ở chế độ theo dõi thay đổi:
+
+```bash
+npm run dev
+```
+
+## 8. Khởi động ứng dụng
+
+Mở một terminal và chạy:
+
+```bash
+php artisan serve
+```
+
+Nếu cần chạy cả Laravel server và Vite, mở terminal khác chạy:
+
+```bash
+npm run dev
+```
+
+Truy cập ứng dụng tại:
+
+```text
+http://127.0.0.1:8000
+```
+
+## 9. Các route chính
+
+| Method | URL | Chức năng |
+| --- | --- | --- |
+| GET | `/` | Trang chủ |
+| GET | `/about` | Trang giới thiệu |
+| GET | `/products` | Danh sách sản phẩm |
+| GET | `/products/create` | Form thêm sản phẩm |
+| POST | `/products` | Lưu sản phẩm mới |
+| GET | `/products/{id}` | Chi tiết sản phẩm |
+| GET | `/products/{id}/edit` | Form chỉnh sửa sản phẩm |
+| PUT/PATCH | `/products/{id}` | Cập nhật sản phẩm |
+| DELETE | `/products/{id}` | Xóa mềm sản phẩm |
+| GET | `/products/trash` | Danh sách sản phẩm trong thùng rác |
+| POST | `/products/{id}/restore` | Khôi phục sản phẩm |
+| DELETE | `/products/{id}/force-delete` | Xóa vĩnh viễn sản phẩm |
+
+## 10. Quy tắc validation sản phẩm
+
+Các trường sản phẩm được kiểm tra trong
+`app/Http/Requests/StoreProductRequest.php`:
+
+- `category_id`: bắt buộc và phải tồn tại trong bảng `categories`.
+- `name`: bắt buộc, dạng chuỗi, từ 5 đến 255 ký tự.
+- `price`: bắt buộc, dạng số và không nhỏ hơn 0.
+- `stock_quantity`: bắt buộc, số nguyên và không nhỏ hơn 0.
+- `description`: không bắt buộc, dạng chuỗi.
+
+## 11. Soft Delete
+
+Sản phẩm sử dụng `SoftDeletes`. Khi dùng chức năng xóa thông thường, bản ghi
+không bị xóa ngay mà được đánh dấu thời gian trong cột `deleted_at`.
+
+- Sản phẩm đang hoạt động xuất hiện tại `/products`.
+- Sản phẩm đã xóa xuất hiện tại `/products/trash`.
+- Khôi phục bằng chức năng `restore`.
+- Xóa hoàn toàn bằng chức năng `forceDelete`.
+
+## 12. Cấu trúc thư mục quan trọng
+
+```text
+app/
+├── Http/
+│   ├── Controllers/
+│   │   ├── HomeController.php
+│   │   └── ProductController.php
+│   └── Requests/
+│       └── StoreProductRequest.php
+├── Models/
+│   ├── Category.php
+│   ├── Product.php
+│   └── User.php
+database/
+├── factories/
+├── migrations/
+└── seeders/
+	└── DatabaseSeeder.php
+resources/
+├── css/
+├── js/
+└── views/
+	├── home/
+	├── layouts/
+	└── product/
+routes/
+└── web.php
+tests/
+├── Feature/
+└── Unit/
+```
+
+## 13. Kiểm thử
+
+Chạy toàn bộ test:
+
+```bash
+php artisan test
+```
+
+Hoặc chạy thông qua Composer:
+
+```bash
+composer test
+```
+
+## 14. Một số lệnh Artisan hữu ích
+
+```bash
+php artisan route:list
+php artisan migrate:status
+php artisan optimize:clear
+php artisan storage:link
+```
+
+## 15. Đóng góp và Git workflow
+
+Kiểm tra trạng thái thay đổi:
+
+```bash
+git status
+```
+
+Thêm thay đổi, commit và push lên nhánh `main`:
+
+```bash
+git add .
+git commit -m "php_lab07_25/8"
+git push origin main
+```
+
+## Tác giả
+
+Lê Minh Quân
