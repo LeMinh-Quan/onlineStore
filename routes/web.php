@@ -2,13 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
-Route::get('/about', [App\Http\Controllers\HomeController::class, 'about'])->name('home.about');
+use App\Http\Controllers\HomeController;
 
-Route::get('/products', [App\Http\Controllers\ProductController::class, 'index'])->name('product.index');
-Route::get('/products/{id}', [App\Http\Controllers\ProductController::class, 'show'])->name('product.show');
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
+Route::get('/about', [HomeController::class, 'about'])->name('home.about');
 
-// Route hiển thị Form thêm sản phẩm (GET)
-Route::get('/product/create', [App\Http\Controllers\ProductController::class, 'create'])->name('product.create');
-// Route xử lý dữ liệu khi người dùng bấm Submit (POST)
-Route::post('/product/store', [App\Http\Controllers\ProductController::class, 'store'])->name('products.store');
+Route::prefix('products')->name('products.')->group(function () {
+    Route::get('/trash', [ProductController::class, 'trash'])->name('trash');
+    Route::post('/{id}/restore', [ProductController::class, 'restore'])->name('restore');
+    Route::delete('/{id}/force-delete', [ProductController::class, 'forceDelete'])->name('forceDelete');
+});
+
+Route::resource('products', ProductController::class);

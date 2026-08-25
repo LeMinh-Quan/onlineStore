@@ -21,7 +21,7 @@ aria-expanded="false" aria-label="Toggle navigation">
                 <div class="navbar-nav ms-auto"> 
                     <a class="nav-link active" href="{{ route('home.index') 
 }}">Home</a> 
-                    <a class="nav-link active" href="{{ route('product.index') 
+                    <a class="nav-link active" href="{{ route('products.index') 
 }}">Products</a> 
                     <a class="nav-link active" href="{{ route('home.about') 
 }}">About</a> 

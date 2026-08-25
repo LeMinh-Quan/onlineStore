@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('description')->nullable(); // Mô tả (có thể để trống) 
             $table->string('image')->nullable(); // Hình ảnh sản phẩm-> ko lỗi khi chạy gộp lab1-6
             
-            $table->timestamps(); 
+            $table->timestamps();
         }); 
     } 
 
