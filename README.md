@@ -59,18 +59,18 @@ vào các nội dung:
 
 ## Công nghệ
 
-| Công nghệ | Phiên bản | Mục đích |
-| --- | --- | --- |
-| PHP | 8.2+ | Ngôn ngữ backend |
-| Laravel | 12 | Web framework |
-| Composer | - | Quản lý package PHP |
-| SQLite | - | Database mặc định cho development |
-| MySQL | 5.7+ | Database tùy chọn |
-| Blade | - | Template engine |
-| Bootstrap | 5.1/5.3 | CSS framework qua CDN |
-| Tailwind CSS | 4 | Utility CSS và Vite integration |
-| Vite | 7 | Build frontend assets |
-| PHPUnit | 11 | Testing framework |
+| Công nghệ    | Phiên bản | Mục đích                          |
+| ------------ | --------- | --------------------------------- |
+| PHP          | 8.2+      | Ngôn ngữ backend                  |
+| Laravel      | 12        | Web framework                     |
+| Composer     | -         | Quản lý package PHP               |
+| SQLite       | -         | Database mặc định cho development |
+| MySQL        | 5.7+      | Database tùy chọn                 |
+| Blade        | -         | Template engine                   |
+| Bootstrap    | 5.1/5.3   | CSS framework qua CDN             |
+| Tailwind CSS | 4         | Utility CSS và Vite integration   |
+| Vite         | 7         | Build frontend assets             |
+| PHPUnit      | 11        | Testing framework                 |
 
 ## Yêu cầu hệ thống
 
@@ -331,43 +331,43 @@ onlineStore/
 
 ### Trang chung
 
-| Method | URL | Chức năng |
-| --- | --- | --- |
-| GET | `/` | Trang chủ |
-| GET | `/about` | Trang giới thiệu |
+| Method | URL      | Chức năng        |
+| ------ | -------- | ---------------- |
+| GET    | `/`      | Trang chủ        |
+| GET    | `/about` | Trang giới thiệu |
 
 ### Quản lý sản phẩm
 
-| Method | URL | Chức năng |
-| --- | --- | --- |
-| GET | `/products` | Danh sách sản phẩm |
-| GET | `/products/create` | Form thêm sản phẩm |
-| POST | `/products` | Lưu sản phẩm mới |
-| GET | `/products/{id}` | Chi tiết sản phẩm |
-| GET | `/products/{id}/edit` | Form chỉnh sửa |
-| PUT/PATCH | `/products/{id}` | Cập nhật sản phẩm |
-| DELETE | `/products/{id}` | Xóa mềm sản phẩm |
+| Method    | URL                   | Chức năng          |
+| --------- | --------------------- | ------------------ |
+| GET       | `/products`           | Danh sách sản phẩm |
+| GET       | `/products/create`    | Form thêm sản phẩm |
+| POST      | `/products`           | Lưu sản phẩm mới   |
+| GET       | `/products/{id}`      | Chi tiết sản phẩm  |
+| GET       | `/products/{id}/edit` | Form chỉnh sửa     |
+| PUT/PATCH | `/products/{id}`      | Cập nhật sản phẩm  |
+| DELETE    | `/products/{id}`      | Xóa mềm sản phẩm   |
 
 ### Thùng rác
 
-| Method | URL | Chức năng |
-| --- | --- | --- |
-| GET | `/products/trash` | Danh sách sản phẩm đã xóa |
-| POST | `/products/{id}/restore` | Khôi phục sản phẩm |
-| DELETE | `/products/{id}/force-delete` | Xóa vĩnh viễn |
+| Method | URL                           | Chức năng                 |
+| ------ | ----------------------------- | ------------------------- |
+| GET    | `/products/trash`             | Danh sách sản phẩm đã xóa |
+| POST   | `/products/{id}/restore`      | Khôi phục sản phẩm        |
+| DELETE | `/products/{id}/force-delete` | Xóa vĩnh viễn             |
 
 ## Validation
 
 Validation được định nghĩa trong
 `app/Http/Requests/StoreProductRequest.php`.
 
-| Trường | Quy tắc | Mô tả |
-| --- | --- | --- |
-| `category_id` | `required\|exists:categories,id` | Bắt buộc và phải tồn tại |
-| `name` | `required\|string\|min:5\|max:255` | Từ 5 đến 255 ký tự |
-| `price` | `required\|numeric\|min:0` | Số không âm |
-| `stock_quantity` | `required\|integer\|min:0` | Số nguyên không âm |
-| `description` | `nullable\|string` | Không bắt buộc |
+| Trường           | Quy tắc                            | Mô tả                    |
+| ---------------- | ---------------------------------- | ------------------------ |
+| `category_id`    | `required\|exists:categories,id`   | Bắt buộc và phải tồn tại |
+| `name`           | `required\|string\|min:5\|max:255` | Từ 5 đến 255 ký tự       |
+| `price`          | `required\|numeric\|min:0`         | Số không âm              |
+| `stock_quantity` | `required\|integer\|min:0`         | Số nguyên không âm       |
+| `description`    | `nullable\|string`                 | Không bắt buộc           |
 
 Form tự động giữ lại dữ liệu hợp lệ trước đó bằng `old()` và hiển thị thông báo
 lỗi bằng directive `@error`.
