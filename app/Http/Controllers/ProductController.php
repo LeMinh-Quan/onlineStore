@@ -17,12 +17,19 @@ class ProductController extends Controller
     //     return view('product.index')->with("viewData", $viewData); 
     // }
 
-    public function index()
-    {
-        $products = Product::latest()->paginate(10);
+    // public function index()
+    // {
+    //     $products = Product::latest()->paginate(10);
 
-        return view('product.index', compact('products'));
-    }
+    //     return view('product.index', compact('products'));
+    // }
+    public function index()
+{
+    // TỐI ƯU HÓA: Sử dụng with('category') để Eager Loading
+    $products = Product::with('category')->latest()->paginate(10);
+
+    return view('product.index', compact('products'));
+}
 
   public function show($id)
   {

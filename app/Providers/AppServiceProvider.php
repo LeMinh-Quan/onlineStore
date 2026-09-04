@@ -4,6 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -21,5 +24,12 @@ class AppServiceProvider extends ServiceProvider
     {
     // Ép hiệu ứng phân trang sử dụng cấu trúc HTML của Bootstrap 5
     Paginator::useBootstrapFive();
+    if(config('app.env')==='local'){
+        DB::listen(function($query){
+            Log::info(
+                "SQL:{$query->sql}|Bindings:".json_encode($query->bindings)
+            );
+        });
+    }
     }
 }

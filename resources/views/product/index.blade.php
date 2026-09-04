@@ -23,6 +23,7 @@
             <tr>
                 <th>ID</th>
                 <th>Tên sản phẩm</th>
+                <th>Danh mục</th>
                 <th>Giá</th>
                 <th>Số lượng</th>
                 <th>Hành động</th>
@@ -33,6 +34,7 @@
             <tr>
                 <td>{{ $product->id }}</td>
                 <td>{{ $product->name }}</td>
+                <td>{{ $product->category?->name ?? 'Chưa phân loại' }}</td>
                 <td>{{ number_format($product->price) }} đ</td>
                 <td>{{ $product->stock_quantity }}</td>
                 <td>
