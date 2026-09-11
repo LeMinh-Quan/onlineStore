@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProductRequest;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -80,11 +81,23 @@ class ProductController extends Controller
     // }
 
 
-    public function store(StoreProductRequest $request)
+    public function store(Request $request)
     {
-        Product::create($request->validated());
+        // 1. Validate dữ liệu đầu vào
+        $request->validate([
+            'name'  => 'required|string|max:255',
+            'price' => 'required|numeric',
+        ]);
 
-        return redirect()->route('products.index')->with('success', 'Thêm sản phẩm mới thành công');
+        // 2. Thêm sản phẩm kèm tự động gán user_id của người dùng hiện tại
+        Product::create([
+            'name'    => $request->name,
+            'price'   => $request->price,
+            'user_id' => auth()->id(), // Tự động lấy ID người đang đăng nhập
+        ]);
+
+        return redirect()->route('products.index')
+                         ->with('success', 'Đã thêm sản phẩm thành công!');
     }
 
     public function edit(string $id)

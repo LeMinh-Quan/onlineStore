@@ -1,54 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet" /> 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@yield('title', 'Online Store')</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .bg-header { background-color: #1a252f; }
+        .bg-banner { background-color: #1abc9c; }
+        .footer { background-color: #1a252f; color: #fff; }
+    </style>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-secondary py-4"> 
-  <div class="container"> 
-            <a class="navbar-brand" href="#">Online Store</a> 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
-data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" 
-aria-expanded="false" aria-label="Toggle navigation">  
-                <span class="navbar-toggler-icon"></span> 
-            </button> 
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">  
-                <div class="navbar-nav ms-auto"> 
-                    <a class="nav-link active" href="{{ route('home.index') 
-}}">Home</a> 
-                    <a class="nav-link active" href="{{ route('products.index') 
-}}">Products</a> 
-                    <a class="nav-link active" href="{{ route('home.about') 
-}}">About</a> 
-                </div> 
-            </div>  
-        </div> 
-    </nav> 
-<header class="masthead bg-primary text-white text-center py-4"> 
-<div class="container d-flex align-items-center flex-column">  
-<h2>@yield('subtitle', 'Online Store - Laravel Framework')</h2> 
-</div>  
-</header> 
-<!-- header -->
-<div class="container my-4">
-@yield('content')
-</div>
-<footer class="copyright py-4 text-center text-white bg-dark">
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-header py-3">
         <div class="container">
-            <small>
-                Copyright - 
-                <a class="text-reset fw-bold text-decoration-none" target="_blank" href="https://twitter.com/">NĐDuy</a> 
-                - <b>CKC</b>
-            </small>
+            <a class="navbar-brand fw-bold fs-4" href="{{ route('home.index') }}">Online Store</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link text-white me-3" href="{{ route('home.index') }}">Home</a>
+                    <a class="nav-link text-white me-3" href="{{ route('products.index') }}">Products</a>
+                    <a class="nav-link text-white me-3" href="{{ route('home.about') }}">About</a>
+                    
+                    @guest
+                        <a class="nav-link text-white me-3" href="{{ route('login') }}">Đăng nhập</a>
+                        <a class="nav-link text-white" href="{{ route('register') }}">Đăng ký</a>
+                    @else
+                        <a class="nav-link text-white me-3" href="{{ route('products.create') }}">Thêm Sản phẩm</a>
+                        <span class="nav-link text-white font-weight-bold">Chào, {{ Auth::user()->name }}</span>
+                    @endguest
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Green Banner Header -->
+    <header class="bg-banner text-white text-center py-4">
+        <div class="container">
+            <h2 class="fw-bold mb-0">@yield('subtitle', 'Online Store - Laravel Framework')</h2>
+        </div>
+    </header>
+
+    <!-- Main Content Dynamic Body -->
+    <main class="container py-4 flex-grow-1">
+        @yield('content')
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer text-center py-3 mt-auto">
+        <div class="container">
+            <small>Copyright - NDDuy - CKC</small>
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

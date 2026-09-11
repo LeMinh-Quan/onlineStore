@@ -38,6 +38,7 @@ class ProductFactory extends Factory
             'image' => fake()->imageUrl(),
             //lấy id ngấu nhiên thông qua random
             'category_id' => Category::inRandomOrder()->first()->id ?? Category::factory(),
+            'user_id' => User::factory(),
         ];
     }
 }
