@@ -6,11 +6,27 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="container mt-5">
+    <nav class="d-flex justify-content-end align-items-center mb-4">
+        @auth
+            <span class="me-3">Tài khoản: {{ auth()->user()->name }}</span>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                
+                <button type="submit" class="btn btn-outline-secondary btn-sm">Đăng xuất</button>
+            </form>
+        @endauth
+    </nav>
+
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2>Quản lý sản phẩm</h2>
         <div>
-            <a href="{{ route('products.create') }}" class="btn btn-primary">Thêm sản phẩm</a>
-            <a href="{{ route('products.trash') }}" class="btn btn-warning">Thùng rác</a>
+            @can('create', \App\Models\Product::class)
+                <a href="{{ route('products.create') }}" class="btn btn-primary">Thêm sản phẩm</a>
+            @endcan
+
+            @can('viewTrash', \App\Models\Product::class)
+                <a href="{{ route('products.trash') }}" class="btn btn-warning">Thùng rác</a>
+            @endcan
         </div>
     </div>
 
@@ -38,12 +54,19 @@
                 <td>{{ number_format($product->price) }} đ</td>
                 <td>{{ $product->stock_quantity }}</td>
                 <td>
-                    <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-info">Sửa</a>
-                    <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Bạn có chắc chắn muốn xóa tạm sản phẩm này?')">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
-                    </form>
+                    <a href="{{ route('products.show', $product->id) }}" class="btn btn-sm btn-secondary">Xem</a>
+
+                    @can('update', $product)
+                        <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-info">Sửa</a>
+                    @endcan
+
+                    @can('delete', $product)
+                        <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Bạn có chắc chắn muốn xóa tạm sản phẩm này?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
+                        </form>
+                    @endcan
                 </td>
             </tr>
             @endforeach

@@ -22,6 +22,8 @@ class User extends Authenticatable
         'email',
         'password',
         'phone_number',
+        'role',
+        //0306241143-Lê Minh Quân
     ];
 
     /**

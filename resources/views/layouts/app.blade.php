@@ -30,8 +30,16 @@
                         <a class="nav-link text-white me-3" href="{{ route('login') }}">Đăng nhập</a>
                         <a class="nav-link text-white" href="{{ route('register') }}">Đăng ký</a>
                     @else
-                        <a class="nav-link text-white me-3" href="{{ route('products.create') }}">Thêm Sản phẩm</a>
+                        @can('create', \App\Models\Product::class)
+                            <a class="nav-link text-white me-3" href="{{ route('products.create') }}">Thêm Sản phẩm</a>
+                        @endcan
                         <span class="nav-link text-white font-weight-bold">Chào, {{ Auth::user()->name }}</span>
+                        <form method="POST" action="{{ route('logout') }}" class="d-flex align-items-center">
+                            @csrf
+                            <button type="submit" class="btn btn-link nav-link text-white">
+                                Đăng xuất
+                            </button>
+                        </form>
                     @endguest
                 </div>
             </div>
