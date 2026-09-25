@@ -139,7 +139,12 @@ class ProductController extends Controller
     {
         Gate::authorize('viewTrash', Product::class);
         //0306241143-Lê Minh Quân
-        $products = Product::onlyTrashed()->latest()->paginate(10);
+        $products = Product::onlyTrashed()
+            ->when(auth()->user()->role !== 'admin', function ($query) {
+                $query->where('user_id', auth()->id());
+            })
+            ->latest()
+            ->paginate(10);
 
         return view('product.trash', compact('products'));
     }

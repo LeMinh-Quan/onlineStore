@@ -33,6 +33,9 @@
                         @can('create', \App\Models\Product::class)
                             <a class="nav-link text-white me-3" href="{{ route('products.create') }}">Thêm Sản phẩm</a>
                         @endcan
+                        @can('viewTrash', \App\Models\Product::class)
+                            <a class="nav-link text-white me-3" href="{{ route('products.trash') }}">Thùng rác</a>
+                        @endcan
                         <span class="nav-link text-white font-weight-bold">Chào, {{ Auth::user()->name }}</span>
                         <form method="POST" action="{{ route('logout') }}" class="d-flex align-items-center">
                             @csrf

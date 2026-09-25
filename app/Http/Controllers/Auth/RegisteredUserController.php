@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\WelcomeRegisteredUserMail;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -30,26 +31,29 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        // 1. Validate dữ liệu đầu vào
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'phone_number' => ['required', 'string', 'min:10', 'max:11', 'unique:'.User::class], // Thêm luật cho SĐT
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        // 2. Tạo tài khoản người dùng
+        // 1. Lưu User mới vào Database
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'phone_number' => $request->phone_number, // Thêm dòng này
             'password' => Hash::make($request->password),
         ]);
 
         event(new Registered($user));
 
+        // 2. PHÁT LỆNH GỬI MAIL CHÀO MỪNG
+        // Do WelcomeRegisteredUserMail có implements ShouldQueue, 
+        // hàm send() tự động chuyển thành queue(), đẩy vào CSDL chứ không làm treo Web.
+        Mail::to($user->email)->send(new WelcomeRegisteredUserMail($user));
+
+        // 3. Đăng nhập và chuyển hướng
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+            return redirect(route('dashboard', absolute: false));
     }
 }

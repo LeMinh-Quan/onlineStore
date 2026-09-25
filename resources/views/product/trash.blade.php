@@ -31,13 +31,16 @@
 				<td>
 					<form action="{{ route('products.restore', $product->id) }}" method="POST" class="d-inline">
 						@csrf
+						@method('PATCH')
 						<button type="submit" class="btn btn-sm btn-success">Khôi phục</button>
 					</form>
-					<form action="{{ route('products.forceDelete', $product->id) }}" method="POST" class="d-inline" onsubmit="return confirm('CẢNH BÁO: Hành động này sẽ xóa dữ liệu vĩnh viễn và không thể hoàn tác!')">
-						@csrf
-						@method('DELETE')
-						<button type="submit" class="btn btn-sm btn-danger">Xóa vĩnh viễn</button>
-					</form>
+					@can('forceDelete', $product)
+						<form action="{{ route('products.forceDelete', $product->id) }}" method="POST" class="d-inline" onsubmit="return confirm('CẢNH BÁO: Hành động này sẽ xóa dữ liệu vĩnh viễn và không thể hoàn tác!')">
+							@csrf
+							@method('DELETE')
+							<button type="submit" class="btn btn-sm btn-danger">Xóa vĩnh viễn</button>
+						</form>
+					@endcan
 				</td>
 			</tr>
 			@empty

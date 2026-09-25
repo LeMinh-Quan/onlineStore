@@ -31,7 +31,7 @@ class ProductPolicy
 
     public function viewTrash(User $user): bool
     {
-        return $user->role === 'admin';
+        return true;
     }
 
     /**
@@ -55,7 +55,7 @@ class ProductPolicy
      */
     public function restore(User $user, Product $product): bool
     {
-        return $user->role === 'admin';
+        return $user->role === 'admin' || $this->isOwner($user, $product);
     }
 
     public function forceDelete(User $user, Product $product): bool
