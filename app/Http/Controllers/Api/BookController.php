@@ -9,11 +9,12 @@ use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
+    // 1. Lấy danh sách (GET)     
     public function index()
     {
         return BookResource::collection(Book::all());
     }
-
+    // 2. Thêm mới (POST)
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -30,7 +31,7 @@ class BookController extends Controller
             'data' => new BookResource($book),
         ], 201);
     }
-
+    // 3. Lấy chi tiết (GET) 
     public function show(string $id)
     {
         $book = Book::find($id);
@@ -41,7 +42,7 @@ class BookController extends Controller
 
         return new BookResource($book);
     }
-
+    // 4. Cập nhật (PUT)
     public function update(Request $request, string $id)
     {
         $book = Book::find($id);
@@ -64,7 +65,7 @@ class BookController extends Controller
             'data' => new BookResource($book),
         ]);
     }
-
+    // 5. Xóa (DELETE)
     public function destroy(string $id)
     {
         $book = Book::find($id);

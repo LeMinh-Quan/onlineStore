@@ -10,10 +10,10 @@ return new class extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('author');
-            $table->integer('price');
-            $table->boolean('is_published')->default(true);
+            $table->string('title');//Tên sách
+            $table->string('author');//tác giả
+            $table->integer('price');// giá
+            $table->boolean('is_published')->default(true);//trạng thái
             $table->timestamps();
         });
     }
